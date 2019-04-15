@@ -1,0 +1,14 @@
+<section class="container wrapper col-12 col-md-9 col-lg-8">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title"><%= @post.title %></h4>
+            <p class="card-text"><%= @post.body %></p>
+            <p class="card-text"><small class="text-muted"><%= time_ago_in_words(@post.created_at) %> ago</small></p>
+            
+            <%= link_to 'Edit', edit_post_path(@post), class: "col-2 text-small btn btn-sm btn-outline-dark" %>
+            
+            <%= link_to 'Delete', post_path(@post), method: :delete, class: "col-2 btn btn-sm btn-outline-dark", data: {confirm: "Are you sure?"} %>
+
+        </div>
+    </div>
+</section>
