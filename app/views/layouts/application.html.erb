@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>BlogOnRails</title>
+    <title>Blog On Rails</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
@@ -28,7 +29,7 @@
         </div>
       </nav>
     </header>
-    <main class="container wrapper">
+    <main class="container-fluid wrapper">
       <%= yield %>
     </main>
   </body>
