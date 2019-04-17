@@ -15,9 +15,12 @@ class PostsController < ApplicationController
   end
 
   def show
+    @comment = Comment.new
+    @comments = @post.comments.order(created_at: :desc)
   end
 
   def index
+    @posts = Post.all.order(created_at: :desc)
   end
 
   def edit

@@ -10,7 +10,7 @@
                     <%= f.label :body, 'Content' %>
                     <%= f.text_area :body, rows: 7, class: "form-control" %>
                 </div>
-                <%= f.submit 'Create Post', class: "btn btn-outline-dark" %>
+                <%= f.submit "#{@post.id.nil? ? "Create Post" : "Update Post"}", class: "btn btn-outline-dark" %>
             <% end %>
         </div>
     </div>

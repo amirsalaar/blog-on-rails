@@ -1,14 +1,43 @@
-<section class="container wrapper col-12 col-md-9 col-lg-8">
+<section class="container wrapper col-12 col-md-11 col-lg-9">
     <div class="card">
         <div class="card-body">
             <h4 class="card-title"><%= @post.title %></h4>
             <p class="card-text"><%= @post.body %></p>
-            <p class="card-text"><small class="text-muted"><%= time_ago_in_words(@post.created_at) %> ago</small></p>
+            <p class="card-text"><small class="text-muted"> Posted <%= time_ago_in_words(@post.created_at) %> ago</small></p>
             
-            <%= link_to 'Edit', edit_post_path(@post), class: "col-2 text-small btn btn-sm btn-outline-dark" %>
+            <%= link_to 'Edit', edit_post_path(@post), class: "text-small btn btn-sm btn-outline-dark" %>
             
-            <%= link_to 'Delete', post_path(@post), method: :delete, class: "col-2 btn btn-sm btn-outline-dark", data: {confirm: "Are you sure?"} %>
+            <%= link_to 'Delete', post_path(@post), method: :delete, class: "btn btn-sm btn-outline-dark", data: {confirm: "Are you sure?"} %>
 
+            <div class="card-body mt-4">
+                <%= form_with(model: [@post, @comment], local: true) do |f| %>
+                    <h5>Comments</h5>
+                    <div class="form-group w-50">
+                        <%= f.label :name %>
+                        <%= f.text_field :name, placehoder: 'Name', class: "form-control form-control-sm" %>
+                    </div>
+
+                    <div class="form-group">
+                        <%= f.text_area :body, placehoder: 'Comment', class: "form-control form-control-sm" %>
+                    </div>
+                    <%= f.submit 'Submit', class: 'btn btn-warning' %>
+                <% end %>
+            </div>
+            <div class="">
+                <ul class="list-group-flush mt-4">
+                    <% @comments.each do |comment| %>
+                        <li class="list-group-item">
+                            <h6><%= comment.name %></h6>
+                            <p><%= comment.body %></p>
+                            <div class="text-muted">
+                                <small> Commented <%= time_ago_in_words(comment.created_at) %> ago by <strong><%= comment.name %></strong></small>
+                                <strong> &bull; </strong>	
+                                <small><%= link_to 'Delete', post_comment_path(@post, comment), method: :delete, data: {confirm: "Your comment will be delete?"}, class: "text-decoration-none" %></small>
+                            </div>
+                        </li>
+                    <% end %>
+                </ul>
+            </div>
         </div>
     </div>
 </section>
