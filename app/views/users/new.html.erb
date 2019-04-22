@@ -1,0 +1,29 @@
+<div class="container card card-body col-12 col-md-8 col-lg-6">
+    <% if @user.errors.any? %>
+        <p>
+            <%= @user.errors.full_messages.join(', ') %>
+        </p>
+    <% end %>
+    <div class="form-group">
+        <%= form_with(model: @user, local: true) do |f| %>
+            <div class="form-group">
+                <%= f.label :name %>
+                <%= f.text_field :name, class: 'form-control', placeholder: 'Full Name' %>
+            </div>
+            <div class="form-group">
+                <%= f.label :email %>
+                <%= f.email_field :email, class: 'form-control', placeholder: 'Email Address' %>
+            </div>
+            <div class="form-group">
+                <%= f.label :password %>
+                <%= f.password_field :password, class: 'form-control', placeholder: 'Password' %>
+            </div>
+            <div class="form-group">
+                <%= f.label :password_confirmation %>
+                <%= f.password_field :password_confirmation, class: 'form-control', placeholder: 'Password Confirmation' %>
+            </div>
+
+            <%= f.submit 'Sign Up', class: 'btn btn-warning col-12 col-md-3' %>
+        <% end %>
+    </div>
+</div>
