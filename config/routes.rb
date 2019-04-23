@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :users, only: [:new, :create, :edit, :update] do
     member do
       get :change_password
-      patch :change_password
+      patch :update_password
     end
   end
 
