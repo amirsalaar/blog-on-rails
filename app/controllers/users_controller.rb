@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
-    before_action :authenticate_user!, only: [:edit, :update, :change_password]
+    before_action :authenticate_user!, only: [:edit, :update, :change_password, :update_password]
     before_action :find_user, only: [:edit, :update, :change_password, :update_password]
+    before_action :authorize!, only: [:edit,:update,:change_password, :update_password]
 
     def new
         @user = User.new
@@ -69,6 +70,12 @@ class UsersController < ApplicationController
         else
             flash[:danger] = "Password confirmation does not match to your new password!"
             render :change_password
+        end
+    end
+
+    def authorize!
+        unless can?(:crud, @user)
+            head :unauthorized
         end
     end
 end

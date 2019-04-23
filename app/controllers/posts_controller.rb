@@ -1,12 +1,15 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: [:show, :index]
   before_action :find_post, only: [:edit, :update, :show, :destroy]
+  before_action :authorize!, only: [:edit, :update, :destroy]
+
   def new
     @post = Post.new
   end
 
   def create
     @post = Post.new post_params
+    @post.user = current_user
     if @post.save
       # render json: params
       redirect_to post_path(@post)
@@ -42,7 +45,7 @@ class PostsController < ApplicationController
   end
 
   private
-
+  
   def post_params
     params.require(:post).permit(:title, :body)
   end
@@ -50,5 +53,13 @@ class PostsController < ApplicationController
   def find_post
     @post = Post.find(params[:id])
   end
+
+  def authorize!
+    unless can?(:crud, @post)
+      flash[:danger] = "Access Denied"
+      redirect_to root_path
+    end
+  end
+  
   
 end

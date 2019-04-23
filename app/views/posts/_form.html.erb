@@ -1,6 +1,12 @@
 <section class="container col-12 col-md-9 col-lg-8">
     <div class="card">
         <div class="card-body">
+            <div class="">
+                <% if @post.errors.present? %>
+                    <p class="alert alert-danger"><%= @post.errors.full_messages.join(', ') %></p>
+                <% end %>
+            </div>
+            
             <%= form_with model:@post, local: true do |f| %>
                 <div class="form-group">
                     <%= f.label :title %>
