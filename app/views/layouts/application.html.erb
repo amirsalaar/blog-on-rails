@@ -47,7 +47,9 @@
     <main class="container-fluid wrapper">
       <div class="container d-flex justify-content-center">
           <% flash.each do |type, message| %>
-            <span class="alert alert-<%= type %>"><%= message %></span>
+            <span class="alert alert-<%= type %> alert-dismissible fade show" data-toggle="collapse"><button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button><%= message %></span>
           <% end %>
       </div>
       <%= yield %>

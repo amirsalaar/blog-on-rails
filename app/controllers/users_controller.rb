@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     end
     
     def update
-        if @user.update user_params
+        if current_user.update user_params
             flash[:success] = "Your information updated successfully!"
             redirect_to root_path
         else
@@ -36,7 +36,7 @@ class UsersController < ApplicationController
     end
     
     def update_password
-        if @user.authenticate(params[:current_password])
+        if current_user&.authenticate(params[:current_password])
             if params[:new_password] == params[:current_password]
                 flash[:danger] = "New password cannot be the same as your old password!"
                 render :change_password
@@ -61,9 +61,9 @@ class UsersController < ApplicationController
 
     def check_update_password
         if params[:new_password] == params[:new_password_confirmation]
-            if @user.update(password: params[:new_password])
+            if current_user.update(password: params[:new_password])
                 flash[:success] = "Your password updated!"
-                redirect_to edit_user_path(@user)
+                redirect_to edit_user_path(current_user)
             else
                 render :change_password
             end  
