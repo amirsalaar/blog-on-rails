@@ -21,12 +21,13 @@ class UsersController < ApplicationController
         
     end
     
-    def update
+    def update  
         if current_user.update user_params
             flash[:success] = "Your information updated successfully!"
             redirect_to root_path
         else
-            flash[:danger] = "Resolve the following errors!"
+            flash[:danger] = current_user.errors.full_messages.join(', ')
+            # current_user.errors.full_messages.join(', ')
             render :edit
         end
     end
